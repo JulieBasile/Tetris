@@ -1,0 +1,14 @@
+/* 200 divs = 20x20px */
+.grid {
+    width: 200px;
+    height: 400px;
+    display: flex;
+    flex-wrap: wrap;
+    background-color: #73BFB8;
+}
+
+.grid div {
+    height: 20px;
+    width: 20px;
+    background-color: blueviolet;
+}
