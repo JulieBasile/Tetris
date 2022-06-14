@@ -5,8 +5,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const ScoreDisplay = document.querySelector('#score')
     const StartBtn = document.querySelector('#start-button')
     const width = 10 
-    
-    /*Tetrominoes (4 tetris shapes)*/ 
+    let nextRandom = 0
+    let timerId 
+    let score = 0
+
+    //Tetrominoes (4 tetris shapes)
     const lTetromino = [
         [1,width+1,width*2+1,2],
         [width,width+1,width+2,width*2+2],
@@ -67,4 +70,14 @@ function undraw() {
         squares[currentPosition + index].classList.remove('tetromino')
         squares[currentPosition + index].style.backgroundColor = ''
     })
+}
+
+//making tetromino move per second
+timerId = setInterval(moveDown, 1000) 
+
+//function move down
+function moveDown() {
+    undraw()
+    currentPosition += width
+    draw()
 }
