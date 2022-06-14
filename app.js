@@ -75,12 +75,12 @@ function undraw() {
 //making tetromino move per second
 timerId = setInterval(moveDown, 1000) 
 
-// function keyCodes
+//keyCodes using arrow keys 
 function control(e) {
   if(e.keyCode === 37) {
      moveLeft() 
   } else if (e.keyCode === 38) {
-    //rotate()
+    rotate()
   } else if (e.keyCode === 39) {
     //moveRight()
   } else if (e.keycode === 40) {
@@ -89,7 +89,7 @@ function control(e) {
 }
 document.addEventListener('keyup', control)
 
-//function move down
+//move tetromino down
 function moveDown() {
     undraw()
     currentPosition += width
@@ -133,5 +133,16 @@ function moveRight() {
   currentPosition -=1
   }
 
+  draw()
+}
+
+//rotate tetromino
+function rotate(){
+  undraw()
+  currentRotation ++
+  if(currentRotation === current.length) { //if the current rotation goes to 5, make it go to 0
+    currentRotation = 0 
+  }
+  current = theTetrominoes[random][currentRotaion]
   draw()
 }
