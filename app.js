@@ -81,3 +81,15 @@ function moveDown() {
     currentPosition += width
     draw()
 }
+
+//freeze tetrominoes from going out of frame
+function freeze() {
+    if(current.some(index => squares[currentPosition + index + width].classList.contains('taken'))) {
+      current.forEach(index => squares[currentPosition + index].classList.add('taken'))
+      //continue tetrominoes flowing once piece lands
+      random = Math.floor(Math.random() * theTetrominoes.length)
+      current = theTetrominoes[random][currentRotation]
+      currentPosition = 5
+      draw()
+    }
+}  
