@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const colors = [
       'purple',
       'blue',
-      'green',
+      'violet',
       'yellow',
       'orange',
     ]
@@ -54,7 +54,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     const theTetrominoes = [lTetromino, zTetromino, tTetromino, oTetromino, iTetromino]
-    let currentPosition = 4
+    let currentPosition = 5
     let currentRotation = 0
 
     console.log(theTetrominoes[0][0])
@@ -114,9 +114,7 @@ document.addEventListener('DOMContentLoaded', () => {
       current = theTetrominoes[random][currentRotation]
       currentPosition = 4
       draw()
-      displayShape()
-      addScore()
-      gameOver()
+      updateScore()
     }
 }  
 
@@ -156,7 +154,9 @@ function rotate(){
 
 //show up-next tetromino in mini-grid display
 const displaySquares = document.querySelectorAll('.mini-grid div')
-const displayWidth = 4
+const displayWidth = 5
 const displayIndex = 0
 
 })
+
+updateScore()
