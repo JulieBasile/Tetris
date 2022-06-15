@@ -8,131 +8,137 @@ document.addEventListener('DOMContentLoaded', () => {
     let nextRandom = 0
     let timerId 
     let score = 0
+    const colors = [
+      'purple',
+      'blue',
+      'green',
+      'yellow',
+      'orange',
+    ]
 
     //Tetrominoes (4 tetris shapes)
     const lTetromino = [
-        [1,width+1,width*2+1,2],
-        [width,width+1,width+2,width*2+2],
-        [1,width+1,width*2+1,width*2],
-        [width,width*2,width*2+1,width*2+2],
+      [1,width+1,width*2+1,2],
+      [width,width+1,width+2,width*2+2],
+      [1,width+1,width*2+1,width*2],
+      [width,width*2,width*2+1,width*2+2],
     ]
 
     const zTetromino = [
-        [0,width,width+1,width*2+1],
-        [width+1,width+2,width*2+1],
-        [0,width,width+1,width*2+1],
-        [width+1,width+2,width*2,width*2+1],
+      [0,width,width+1,width*2+1],
+      [width+1,width+2,width*2+1],
+      [0,width,width+1,width*2+1],
+      [width+1,width+2,width*2,width*2+1],
     ] 
 
     const tTetromino = [
-        [1,width,width+1,width+2],
-        [1,width+1,width+2,width*2+1],
-        [width,width+1,width+2,width*2+1],
-        [1,width,width+1,width*2+1],
+      [1,width,width+1,width+2],
+      [1,width+1,width+2,width*2+1],
+      [width,width+1,width+2,width*2+1],
+      [1,width,width+1,width*2+1],
     ] 
 
     const oTetromino = [
-        [0,1,width,width+1],
-        [0,1,width,width+1],
-        [0,1,width,width+1],
-        [0,1,width,width+1],
+      [0,1,width,width+1],
+      [0,1,width,width+1],
+      [0,1,width,width+1],
+      [0,1,width,width+1],
     ] 
 
     const iTetromino = [
-        [1,width+1,width*2+1,width*3+1],
-        [width,width+1,width+2,width+3],
-        [1,width+1,width*2+1,width*3+1],
-        [width,width+1,width+2,width+3],
+      [1,width+1,width*2+1,width*3+1],
+      [width,width+1,width+2,width+3],
+      [1,width+1,width*2+1,width*3+1],
+      [width,width+1,width+2,width+3],
     ] 
-})
 
-const theTetrominoes = [lTetromino, zTetromino, tTetromino, oTetromino, iTetromino]
-let currentPosition = 5
-let currentRotation = 0
 
-console.log(theTetrominoes[0][0])
+    const theTetrominoes = [lTetromino, zTetromino, tTetromino, oTetromino, iTetromino]
+    let currentPosition = 4
+    let currentRotation = 0
 
-//randomly select tetromino and its first rotation
-let random = Math.floor(Math.random()*theTetrominoes.length)
-let current = theTetrominoes[random] [currentRotation]
+    console.log(theTetrominoes[0][0])
 
-//drawing the tetromino
-function draw() {
-    current.forEach(index => {
+    //randomly select tetromino and its first rotation
+    let random = Math.floor(Math.random()*theTetrominoes.length)
+    let current = theTetrominoes[random] [currentRotation]
+
+    //drawing the tetromino
+    function draw() {
+      current.forEach(index => {
         squares[currentPosition + index].classList.add('tetromino')
-        squares[currentPosition + index].style.backgroundColor = color[random]
-    })
-}
+        squares[currentPosition + index].style.backgroundColor = colors[random]
+      })
+    }
 
-//undrawing the tetromino
-function undraw() {
-    current.forEach(index => {
+    //undrawing the tetromino
+    function undraw() {
+      current.forEach(index => {
         squares[currentPosition + index].classList.remove('tetromino')
         squares[currentPosition + index].style.backgroundColor = ''
-    })
-}
+      })
+    }
 
-//making tetromino move per second
-timerId = setInterval(moveDown, 1000) 
+    //making tetromino move per second
+    timerId = setInterval(moveDown, 1000) 
 
-//keyCodes using arrow keys 
-function control(e) {
-  if(e.keyCode === 37) {
-     moveLeft() 
-  } else if (e.keyCode === 38) {
-    rotate()
-  } else if (e.keyCode === 39) {
-    //moveRight()
-  } else if (e.keycode === 40) {
-    //moveDown()
-  }
-}
-document.addEventListener('keyup', control)
+    //keyCodes using arrow keycodes 
+    function control(e) {
+      if(e.keyCode === 37) {
+        moveLeft() 
+      } else if (e.keyCode === 38) {
+        rotate()
+      } else if (e.keyCode === 39) {
+        moveRight()
+      } else if (e.keycode === 40) {
+        moveDown()
+      }
+    }
+    document.addEventListener('keyup', control)
 
-//move tetromino down
-function moveDown() {
-    undraw()
-    currentPosition += width
-    draw()
-}
+    //move tetromino down
+    function moveDown() {
+      undraw()
+      currentPosition += width
+      draw()
+      freeze()
+    }
 
-//freeze tetrominoes from going out of frame
-function freeze() {
-    if(current.some(index => squares[currentPosition + index + width].classList.contains('taken'))) {
+    //freeze tetromino from going out of frame
+    function freeze() {
+      if(current.some(index => squares[currentPosition + index + width].classList.contains('taken'))) {
       current.forEach(index => squares[currentPosition + index].classList.add('taken'))
       //continue tetrominoes flowing once piece lands
-      random = Math.floor(Math.random() * theTetrominoes.length)
+      random = nextRandom
+      nextRandom = Math.floor(Math.random() * theTetrominoes.length)
       current = theTetrominoes[random][currentRotation]
-      currentPosition = 5
+      currentPosition = 4
       draw()
+      displayShape()
+      addScore()
+      gameOver()
     }
 }  
 
 //move tetromino to left edge 
 function moveLeft() {
-    undraw()
-    const leftEdge = current.some(index => (currentPosition + index) % width === 0)
-
-    if(!leftEdge) currentPosition -=1
-
-    if(current.some(index => squares[currentPosition + index].classList.contains('taken')))
-      currentPosition +=1
-    }
-
-    draw()
+  undraw()
+  const leftEdge = current.some(index => (currentPosition + index) % width === 0)
+  if(!leftEdge) currentPosition -=1
+  if(current.some(index => squares[currentPosition + index].classList.contains('taken'))) {
+    currentPosition +=1
+  }
+  draw()
 }
 
 //move tetromino to right edge
 function moveRight() {
   undraw()
   const rightEdge = current.some(index => (currentPosition + index) % width === width -1)
-
   if(!rightEdge) currentPosition +=1
-
-  if(current.some(index => squares[currentPosition + index].classList.contains('taken')))
-  currentPosition -=1
+  if(current.some(index => squares[currentPosition + index].classList.contains('taken'))) {
+    currentPosition -=1
   }
-
   draw()
 }
 
@@ -146,3 +152,5 @@ function rotate(){
   current = theTetrominoes[random][currentRotaion]
   draw()
 }
+
+})
