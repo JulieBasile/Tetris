@@ -2,11 +2,12 @@ Tetris is a puzzle game that uses shapes called Tetriminoes, played on a grid ca
 
 
  OBJECTIVE 
- - To make the Tetomino shapes fit together. 
+ - To make the Tetromino shapes fit together. 
  
  HOW TO PLAY
 - Tetromino shapes will drop one by one from the top of the Matrix and lower to the bottom. 
 - Tetrominos come in 5 letter of the alphabet shapes (l, z, t, o, i)
+- You have the ability to control the Tetrominoes by moving them left or right, you can also rotate the shape around.
 - Make the Tetriminoes land in such a way they form solid horizontal lines. The lines formed will then disappear from the Matrix.
 
 
