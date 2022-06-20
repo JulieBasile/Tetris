@@ -18,6 +18,7 @@ TO DO
 - Rotate does not work
 - Start / stop bottom lacks functionality 
 - Score needs to calculate
+- Lines completed need to calculate 
+- Level
 - Game needs to stop or lets just refresh forever
-- Need to change green color shape, lake of contrast to the background shade
 - CSS is calling and asking why I did not use more of it 
