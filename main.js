@@ -8,13 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let nextRandom = 0
     let timerId 
     let score = 0
-    const colors = [
-      'purple',
-      'blue',
-      'violet',
-      'yellow',
-      'orange',
-    ]
+    const colors = ['purple', 'blue', 'violet', 'yellow', 'orange'];
 
     //Tetrominoes (4 tetris shapes)
     const lTetromino = [
@@ -141,22 +135,14 @@ function moveRight() {
 }
 
 //rotate tetromino
-function rotate(){
+function rotate() {
   undraw()
   currentRotation ++
   if(currentRotation === current.length) { //if the current rotation goes to 5, make it go to 0
     currentRotation = 0 
   }
-  current = theTetrominoes[random][currentRotaion]
-  checkRotatedPosition()
+  current = theTetrominoes [random][currentRotaion]
   draw()
 }
 
-//show up-next tetromino in mini-grid display
-const displaySquares = document.querySelectorAll('.mini-grid div')
-const displayWidth = 5
-const displayIndex = 0
-
 })
-
-updateScore()
